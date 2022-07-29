@@ -1,0 +1,19 @@
+.navbar{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    background-color: rgb(240,46,99);
+    padding: 10px 15px;
+    font-size: larger;
+    color: #fff;
+}
+
+.icon {
+ cursor: pointer;
+ font-size: 27px;
+}
