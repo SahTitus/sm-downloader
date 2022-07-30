@@ -1,0 +1,135 @@
+.smDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #172b35;
+    color: #fff;
+    margin-top: 70px;
+    border-radius: 6px;
+    /* padding: 10px 10px; */
+  }
+  
+  .smDescription__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 5px 10px;
+  }
+  
+  .smDescription__container p{
+    margin-top: 0px;
+  }
+  
+  .plaftforms__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    padding-bottom: 30px;
+    width: 100%;
+  }
+  
+  .supportIcons {
+    display: contents;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .platformIcon{
+    font-size: 40px;
+  }
+  
+  .howToDownload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-top: 70px;
+    border-radius: 6px;
+  }
+
+  .guidelinesTitle {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .guidelines {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .share {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #172b35;
+    color: #fff;
+    margin-top: 70px;
+    border-radius: 6px;
+    padding-bottom: 30px;
+  }
+  
+  .share__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  width: 80%;
+  border-radius: 5px;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  color: #172b35;
+  }
+  
+  .share__button:hover {
+    background-color: aliceblue;
+  }
+  
+  .shareIcon {
+    margin-left: 10px;
+  }
+  
+  .features {
+    display: flex;
+    flex-direction: column;
+    background-color: #172b35;
+    color: #fff;
+    margin-top: 70px;
+    border-radius: 6px;
+    padding-bottom: 30px;
+  }
+  
+  .features__container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .features__container h3 {
+    display: flex;
+   margin-left: 15px;
+  }
+  
+  .features__container p {
+    display: flex;
+    align-items: center;
+  }
+  
+  .bullet {
+    margin-right: 10px;
+    margin-left: 15px;
+  }
+  
+
+  @media (max-width: 350px) {
+    .platformIcon{
+      font-size: 25px;
+    }
+  
+  }

@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItem, ListItemIcon, ListItemText, List } from "@mui/material";
+import { ListItem, List } from "@mui/material";
 import styles from "../styles/Quality.module.css";
 import { VolumeMuteFill } from "react-bootstrap-icons";
 
