@@ -25,6 +25,7 @@
   outline: none;
   border: none;
   font-size: 15px;
+  height: 100%;
 }
 
 .input::placeholder {
