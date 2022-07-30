@@ -27,7 +27,7 @@ function Home() {
         <h1>SM DOWNLOADER</h1>
         <h4>
           Dynamically download all your social media videos into your gallery by
-          copying and pasting the video`s link into the form below 👇👇👇
+          copying and pasting the video`s link into the form below
         </h4>
       </div>
       <Download />
