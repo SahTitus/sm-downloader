@@ -19,6 +19,7 @@
 .top__title h4 {
   text-align: center;
   margin-top: -5px;
+  line-height: 26px;
 }
 .logo {
   display: flex;

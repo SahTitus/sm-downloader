@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 function Service() {
   const router = useRouter();
   const shareUrl = router.origin;
-  console.log(router);
+  // console.log(router);
   // const shareUrl = "";
   const shareDetails = { shareUrl };
 
