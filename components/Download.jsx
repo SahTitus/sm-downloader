@@ -25,9 +25,6 @@ function Download() {
   });
   const show = false;
 
-  console.log(results);
-  console.log(resolution);
-
   const videoClick = () => {
     setVideoSelected(true);
     setAudioSelected(false);
