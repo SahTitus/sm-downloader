@@ -35,7 +35,6 @@ export default async function handler(req, res) {
       console.log('Successfully downloaded file!');
     });
     
-    res.json('DONE')
   } catch (err) {
     throw new Error(err);
   }
