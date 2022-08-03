@@ -8,13 +8,12 @@ export default async function handler(req, res) {
   const { body } = req;
   console.log(body.downloadUrl);
 
- if (body.url) {
-  // const data = await avd(body?.url);
+//  if (body.url) {
   const data = await vdp(body.url)
 
 console.log(data)
   res.json(data);
- }
+//  }
 //  npm i social-downloader-cherry 
 //  npm i all-video-downloader  
 //  npm i social_media_downloader  
