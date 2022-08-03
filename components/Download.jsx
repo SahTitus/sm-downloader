@@ -71,21 +71,21 @@ function Download() {
     e.preventDefault();
     setLoading(true);
     if (url) {
-      const response = await fetch("api/download", {
-        method: "POST",
-        body: JSON.stringify({
+      await axios( {
+        method: "post",
+        url: "api/download",
+        data: {
           url: url,
-        }),
+        },
         headers: {
           "Content-Type": "application/json",
         },
+      }).then((data) => {
+        setResults(data) 
+        setLoading(false);
       });
-
-      const data = await response.json();
-      setResults(data);
-      if (response) setLoading(false);
-      console.log(data);
-    }
+      console.log(results);
+    } 
   };
   const download = async (e) => {
     e.preventDefault();
