@@ -80,13 +80,13 @@ function Download() {
         headers: {
           "Content-Type": "application/json",
         },
-      }).then((data) => {
+      }).then(({data}) => {
         setResults(data) 
         setLoading(false);
       });
-      console.log(results);
     } 
   };
+  console.log(results);
   const download = async (e) => {
     e.preventDefault();
     console.log('GONE')
