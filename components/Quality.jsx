@@ -20,7 +20,8 @@ function Quality({quality, setResolution}) {
         {quality?.map((quality, i) => (
                 <div onClick={()=>  setResolution(quality)} key={i} className={`${styles.options}`}>
                 <ListItem className={styles.option} button style={{ color: "red" }}>
-                  <p>{quality.text}</p>
+                  <p>{quality.quality}</p> - 
+                  <p>{quality.format}</p>
                   <div className={styles.file__size}>
                     <p> 49.4MB</p>
                     <span className={styles.mute__circle}>

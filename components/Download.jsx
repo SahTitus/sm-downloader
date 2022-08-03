@@ -12,12 +12,13 @@ import axios from "axios";
 import { Drawer, Box } from "@mui/material";
 import Quality from "./Quality";
 
+
 function Download() {
   const [url, setUrl] = useState("");
   const [results, setResults] = useState({});
   const [videoSelected, setVideoSelected] = useState(true);
   const [audioSelected, setAudioSelected] = useState(false);
-  const [resolution, setResolution] = useState({text: 'Set Quality', href: ''});
+  const [resolution, setResolution] = useState({format: 'Set Quality', url: ''});
   const [selectedLink, setSelectedLink] = useState("");
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
@@ -25,8 +26,7 @@ function Download() {
   });
   const show = false;
 
-  console.log(results);
-  console.log(resolution);
+  console.log(results.links)
 
   const videoClick = () => {
     setVideoSelected(true);
@@ -45,9 +45,7 @@ function Download() {
   const handleChange = (e) => {
     setUrl(e.target.value);
   };
-  const handleSelectResol = (e) => {
-    setResolution(e.target.value);
-  };
+
 
   const list = (anchor) => (
     <Box
@@ -94,11 +92,11 @@ function Download() {
   const download = async (e) => {
     e.preventDefault();
     console.log('GONE')
-    if (resolution.href) {
+    if (resolution.url) {
       const response = await fetch("api/download", {
         method: "POST",
         body: JSON.stringify({
-          downloadUrl: resolution?.href,
+          downloadUrl: resolution?.url,
           title: results?.info?.title
         }),
         headers: {
@@ -177,7 +175,8 @@ function Download() {
                 className={styles.resolu__container}
               >
                 <div className={styles.resolu__select}>
-                   <p>{  resolution.text}</p>
+                   <p>{  resolution.quality}</p> {" "} - 
+                   <p>{  resolution.format}</p>
                   <div className={styles.file__size}>
                     <p> 49.4MB</p>
                     <span className={styles.mute__circle}>

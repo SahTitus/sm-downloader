@@ -1,18 +1,26 @@
-import avd from "all-video-downloader";
+// import avd from "all-video-downloader";
 import axios from "axios";
 import * as fs from "fs";
 import path from "path";
+import vdp from '../downloader'
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req, res) {
   const { body } = req;
   console.log(body.downloadUrl);
 
  if (body.url) {
-  const data = await avd(body?.url);
+  // const data = await avd(body?.url);
+  const data = await vdp(body.url)
 
+console.log(data)
   res.json(data);
  }
 
+//  http://www.youtube.com/get_video_info?video_id=rSn_X_Em6Vo
+//  npm i social-downloader-cherry 
+//  npm i all-video-downloader  
+//  npm i social_media_downloader  
 
   // // The path of the downloaded file on our machine
  if (body.downloadUrl) {
@@ -34,9 +42,11 @@ export default async function handler(req, res) {
     download.on('finish', () => {
       console.log('Successfully downloaded file!');
     });
+    res.send('Download successfully')
 
   } catch (err) {
     throw new Error(err);
   }
  }
+
 }
