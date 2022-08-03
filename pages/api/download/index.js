@@ -3,7 +3,6 @@ import axios from "axios";
 import * as fs from "fs";
 import path from "path";
 import vdp from '../downloader'
-import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req, res) {
   const { body } = req;
@@ -16,8 +15,6 @@ export default async function handler(req, res) {
 console.log(data)
   res.json(data);
  }
-
-//  http://www.youtube.com/get_video_info?video_id=rSn_X_Em6Vo
 //  npm i social-downloader-cherry 
 //  npm i all-video-downloader  
 //  npm i social_media_downloader  
@@ -48,5 +45,4 @@ console.log(data)
     throw new Error(err);
   }
  }
-
 }
