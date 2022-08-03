@@ -7,9 +7,12 @@ import vdp from '../downloader'
 export default async function handler(req, res) {
   const { body } = req;
 
+ if (body.url) {
   const data = await vdp(body.url)
 
- res.json(data);
+  res.json(data);
+
+ }
 //  npm i social-downloader-cherry 
 //  npm i all-video-downloader  
 //  npm i social_media_downloader  
