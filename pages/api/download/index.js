@@ -39,4 +39,6 @@ export default async function handler(req, res) {
     throw new Error(err);
   }
  }
+
+ res.send("i dey 0 😒😒")
 }
