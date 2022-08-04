@@ -7,19 +7,19 @@ import vdp from 'video-downloader-pro'
 export default async function handler(req, res) {
   const { body } = req;
 
-  try {
-console.log(body.url)
-    if (body.url) {
-      const data = await vdp(body.url)
-     console.log(data)
-      res.json(data);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+//   try {
+// console.log(body.url)
+  //   if (body.url) {
+  //     const data = await vdp(body.url)
+  //    console.log(data)
+      
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
 
-
+  res.json(body);
 
 
 //  npm i social-downloader-cherry 
