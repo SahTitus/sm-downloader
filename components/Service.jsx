@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CircleFill,
   Facebook,
@@ -9,14 +9,12 @@ import {
   Youtube,
 } from "react-bootstrap-icons";
 import styles from "../styles/Service.module.css";
-import { useRouter } from "next/router";
 
 function Service() {
-  const router = useRouter();
-  const shareUrl = router.origin;
-  // console.log(router);
-  // const shareUrl = "";
-  const shareDetails = { shareUrl };
+
+  const url=`/`
+  const title="Social media video downloader"
+  const shareDetails = { title, url };
 
   const handleSharing = async () => {
     if (navigator.share) {

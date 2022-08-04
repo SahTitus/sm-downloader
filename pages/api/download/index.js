@@ -2,17 +2,26 @@
 import axios from "axios";
 import * as fs from "fs";
 import path, { resolve } from "path";
-import vdp from '../downloader'
+import vdp from 'video-downloader-pro'
 
 export default async function handler(req, res) {
   const { body } = req;
 
- if (body.url) {
-  const data = await vdp(body.url)
+  try {
+console.log(body.url)
+    if (body.url) {
+      const data = await vdp(body.url)
+     console.log(data)
+      res.json(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 
-  res.json(data);
 
- }
+
+
+
 //  npm i social-downloader-cherry 
 //  npm i all-video-downloader  
 //  npm i social_media_downloader  
