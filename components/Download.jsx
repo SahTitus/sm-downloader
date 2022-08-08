@@ -19,7 +19,7 @@ function Download() {
   const [results, setResults] = useState({});
   const [videoSelected, setVideoSelected] = useState(true);
   const [audioSelected, setAudioSelected] = useState(false);
-  const [resolution, setResolution] = useState({format: 'Set Quality', url: ''});
+  const [resolution, setResolution] = useState({format: 'Set Quality',});
   const [selectedLink, setSelectedLink] = useState("");
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
@@ -56,7 +56,10 @@ function Download() {
       <Quality
         setSelectedLink={setSelectedLink}
         setResolution={setResolution}
-        quality={results?.links}
+        quality={results?.url}
+        sd={results?.sd}
+        hd={results?.hd}
+        hosting={results?.hosting}
       />
     </Box>
   );
@@ -81,9 +84,9 @@ function Download() {
               url: url,
             },
         })
-        .then(response => {
-            const html = response.data
-            console.log(html)
+        .then(({ data}) => {
+            setResults(data) 
+            setLoading(false);
         
         }).catch(error=> console.log(error))
       // .then(({data}) => {
@@ -101,7 +104,8 @@ function Download() {
         method: "POST",
         body: JSON.stringify({
           downloadUrl: resolution?.url,
-          title: results?.info?.title
+          title: results?.meta.title,
+          ext: resolution?.ext
         }),
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +119,7 @@ function Download() {
       
     }
   };
-
+console.log(resolution.name)
   return (
     <div>
       <div className={styles.form}>
@@ -140,18 +144,18 @@ function Download() {
         </div>
       )}
 
-      {!!results.links && (
+      {!!results.url && (
         <div className={styles.results}>
           <div className={styles.thumbnail}>
             <img
-              src={results?.info?.thub}
+              src={results?.thumb}
               alt=""
               layout="fill"
               className={styles.results__image}
             />
           </div>
-          <p className={styles.title}>{results?.info?.title}</p>
-          <p className={styles.title}>{results?.info?.duration}</p>
+          <p className={styles.title}>{results?.meta?.title}</p>
+          <p className={styles.title}>{results?.meta?.duration}</p>
 
           <div className={styles.resolutions}>
             <div className={styles.video__format}>
@@ -179,7 +183,9 @@ function Download() {
                 className={styles.resolu__container}
               >
                 <div className={styles.resolu__select}>
-                   <p>{  resolution.quality}</p> {" "} - 
+                   <p>{  resolution?.quality || resolution?.subname || resolution?.name}</p>   - 
+                  
+                   <p>{  resolution.name}</p>
                    <p>{  resolution.format}</p>
                   <div className={styles.file__size}>
                     <p> 49.4MB</p>

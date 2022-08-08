@@ -3,7 +3,7 @@ import { ListItem, List } from "@mui/material";
 import styles from "../styles/Quality.module.css";
 import { VolumeMuteFill } from "react-bootstrap-icons";
 
-function Quality({quality, setResolution}) {
+function Quality({quality, setResolution, sd, hd, hosting}) {
 
 
 
@@ -20,8 +20,13 @@ function Quality({quality, setResolution}) {
         {quality?.map((quality, i) => (
                 <div onClick={()=>  setResolution(quality)} key={i} className={`${styles.options}`}>
                 <ListItem className={styles.option} button style={{ color: "red" }}>
-                  <p>{quality.quality}</p> - 
-                  <p>{quality.format}</p>
+                  {(hosting === "vimeo.com" && <p>{quality?.subname}</p>) } 
+                  {(hosting === "101" && <p>{quality?.quality}</p>) }
+                  {(hosting === "facebook.com" && <p>{quality?.subname}</p>) } 
+                  {(hosting === "tiktok.com" && <p>{quality?.subname}</p>) } 
+                  {(hosting === "twitter.com" && <p>{quality?.quality}</p>) }
+
+                  <p>{quality.name}</p>
                   <div className={styles.file__size}>
                     <p> 49.4MB</p>
                     <span className={styles.mute__circle}>
