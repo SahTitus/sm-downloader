@@ -15,11 +15,11 @@ console.log(body.url)
       const data = await vdp(body.url)
      console.log(data)
       res.json(data);
-    }
+    } }
   } catch (error) {
     console.log(error);
   }
-
+  
 
 
 
