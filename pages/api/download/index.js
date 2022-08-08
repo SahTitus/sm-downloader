@@ -2,7 +2,7 @@
 import axios from "axios";
 import * as fs from "fs";
 import path, { resolve } from "path";
-import vdp from 'video-downloader-pro'
+import vdp from '../downloader'
 
 export default async function handler(req, res) {
   const { body } = req;
@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   try {
 console.log(body.url)
     if (body.url) {
+
       const data = await vdp(body.url)
      console.log(data)
       res.json(data);

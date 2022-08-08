@@ -12,6 +12,7 @@ import axios from "axios";
 import { Drawer, Box } from "@mui/material";
 import Quality from "./Quality";
 
+const reqUrl = 'https://api.videodownloaderpro.net/api/convert'
 
 function Download() {
   const [url, setUrl] = useState("");
@@ -72,19 +73,23 @@ function Download() {
     setLoading(true);
     if (url) {
       await axios( {
-        method: "post",
-        url: "api/download",
-        // url: "https://smdown-server.herokuapp.com/convert",
-        data: {
-          url: url,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(({data}) => {
-        setResults(data) 
-        setLoading(false);
-      });
+
+
+            method: "post",
+            url: reqUrl,
+            data: {
+              url: url,
+            },
+        })
+        .then(response => {
+            const html = response.data
+            console.log(html)
+        
+        }).catch(error=> console.log(error))
+      // .then(({data}) => {
+      //   setResults(data) 
+      //   setLoading(false);
+      // });
     } 
   };
   console.log(results);
