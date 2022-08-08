@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 console.log(body.url)
     if (body.url) {
 
+    if (data) {
       const data = await vdp(body.url)
      console.log(data)
       res.json(data);
