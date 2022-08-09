@@ -8,13 +8,12 @@ export default async function handler(req, res) {
   const { body } = req;
 
   // The path of the downloaded file on our machine
- if (body.downloadUrl) {
-  const name = "Good mongoose"
+
   const dir = `${body.title}sm.${body.ext}`
   const localFilePath = path.resolve( dir);
-  console.log(localFilePath)
+  console.log(body)
 
-  try {
+
       // Call this function if fileUrl exists
     const response = await axios({
       method: 'GET',
@@ -22,15 +21,12 @@ export default async function handler(req, res) {
       responseType: 'stream',
     });
 
-    const download = response.data.pipe(fs.createWriteStream(localFilePath));
+    console.log(response.data)
 
+    const download = response.data.pipe(fs.createWriteStream(localFilePath));
+// console.log(download)
     download.on('finish', () => {
       console.log('Successfully downloaded file!');
     });
-    res.send('Download successfully')
-
-  } catch (err) {
-    throw new Error(err);
-  }
- }
+    res.json(download);
 }

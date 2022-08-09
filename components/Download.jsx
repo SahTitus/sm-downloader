@@ -100,22 +100,39 @@ function Download() {
     e.preventDefault();
     console.log('GONE')
     if (resolution.url) {
-      const response = await fetch("api/download", {
-        method: "POST",
-        body: JSON.stringify({
+
+      await axios({
+        method: "post",
+        url: "api/download",
+        data: {
           downloadUrl: resolution?.url,
           title: results?.meta.title,
           ext: resolution?.ext
-        }),
-        headers: {
-          "Content-Type": "application/json",
         },
-      });
 
-      const data = await response.json();
-      // setResults(data);
-      // if (response) setLoading(false);
+    })
+    .then(({ data}) => {
       console.log(data);
+    }).catch(error=> console.log(error))
+
+
+  //     const response = await fetch("api/download", {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         downloadUrl: resolution?.url,
+  //         title: results?.meta.title,
+  //         ext: resolution?.ext
+  //       }),
+  //        responseType: 'stream',
+  //       headers: {
+  //         "Content-Type": "video/mp4",
+  //       },
+  //     });
+
+  //     const data = await response.json();
+  //     // setResults(data);
+  //     // if (response) setLoading(false);
+  //     console.log(response);
       
     }
   };
@@ -183,7 +200,7 @@ console.log(resolution.name)
                 className={styles.resolu__container}
               >
                 <div className={styles.resolu__select}>
-                   <p>{  resolution?.quality || resolution?.subname || resolution?.name}</p>   - 
+                   <p>{  resolution?.quality || resolution?.subname || resolution?.name}</p> &nbsp;  - 
                   
                    <p>{  resolution.name}</p>
                    <p>{  resolution.format}</p>
@@ -212,6 +229,9 @@ console.log(resolution.name)
           </div>
         </div>
       )}
+
+<a   href="https://rr4---sn-p5qs7nzy.googlevideo.com/videoplayback?expire=1659994466&amp;ei=Ai3xYpOANYKQhwbjiaiwDQ&amp;ip=216.131.105.137&amp;id=o-ANqqSvk86uQp5tnyC4eDp9SLz3J62Awc7Wi-9lrxrcYr&amp;itag=22&amp;source=youtube&amp;requiressl=yes&amp;mh=9K&amp;mm=31%2C29&amp;mn=sn-p5qs7nzy%2Csn-p5qlsn7l&amp;ms=au%2Crdu&amp;mv=m&amp;mvi=4&amp;pl=25&amp;initcwndbps=916250&amp;spc=lT-KhquPfUxWq5nNAKsX-S7yEbB3QzM&amp;vprv=1&amp;mime=video%2Fmp4&amp;ns=zY_efpyzg6BDeVlN9Vo5SQIH&amp;cnr=14&amp;ratebypass=yes&amp;dur=56.865&amp;lmt=1658770377609109&amp;mt=1659972540&amp;fvip=1&amp;fexp=24001373%2C24007246&amp;c=WEB&amp;rbqsm=fr&amp;txp=5532434&amp;n=ciA7wDpj4ff7Kw&amp;sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Ccnr%2Cratebypass%2Cdur%2Clmt&amp;sig=AOq0QJ8wRAIgCuQNMax6YM9W-fH84bod85mmxZ2PTbQQ1hqevACIIUwCIHWpkMXmxAlvjg1AYD9UW87qwIiCg9YGE_9onaoGvD8I&amp;lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&amp;lsig=AG3C_xAwRQIhANwT7MGoj25pUfJ58chZhRUKuxNBpeF3sYNW4IqHW042AiBETwhQaKvwJKmKGKGszi20iW0FgH7qnfHh8vwQNoYRnw%3D%3D&amp;title=kk" >Download</a>
+<a   href="https://rr2---sn-aigzrney.googlevideo.com/videoplayback?expire=1659993809&amp;ei=cSrxYtXmKsiyyQXn4In4CQ&amp;ip=185.108.107.82&amp;id=o-ADNed2XktYdtKWRr8Vt76tfiOKGGAPI8HnMw6g0NHxTg&amp;itag=18&amp;source=youtube&amp;requiressl=yes&amp;spc=lT-Khh5DaE2YKeFktnGDmrqdgrCOu-A&amp;vprv=1&amp;mime=video%2Fmp4&amp;ns=FqOK87rQb1u0a0UWdOYKxugH&amp;gir=yes&amp;clen=11431467&amp;ratebypass=yes&amp;dur=132.934&amp;lmt=1659841016884299&amp;fexp=24001373,24007246&amp;c=WEB&amp;rbqsm=fr&amp;txp=5538434&amp;n=HYL5NQo_eNy7PQ&amp;sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cspc%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&amp;sig=AOq0QJ8wRQIhALNwkU9wMn0_xiZWRuBz_dYx4eLlzJNVtIK0Jw6j0r20AiBaa8nOO_j3bbuQsvacJ5iVA_mtH90i7ScMU5XM7djyeQ%3D%3D&amp;rm=sn-gxuog0-n8vl76,sn-ixhl7l&amp;req_id=1fb3c8a0c719a3ee&amp;cmsv=e&amp;redirect_counter=2&amp;cms_redirect=yes&amp;ipbypass=yes&amp;mh=ag&amp;mip=154.160.2.113&amp;mm=29&amp;mn=sn-aigzrney&amp;ms=rdu&amp;mt=1659974468&amp;mv=m&amp;mvi=2&amp;pl=24&amp;lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&amp;lsig=AG3C_xAwRgIhAIOs1jNGJJrXNJQ3oxzc9e1XlNHvgFfMD6qfUKQQLs9MAiEA3SjMSWNdhdD5TYMNd1cPpeEPaSjimifxoEBZzfVt00g%3D&amp;title=Ra" >Download</a>
       <Drawer
         anchor="bottom"
         open={state.bottom}
