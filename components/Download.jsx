@@ -101,42 +101,38 @@ function Download() {
     console.log('GONE')
     if (resolution.url) {
 
-      await axios({
-        method: "post",
-        url: "api/download",
-        data: {
-          downloadUrl: resolution?.url,
-          title: results?.meta.title,
-          ext: resolution?.ext
-        },
+      const response = await axios({
+        method: 'GET',
+        responseType: 'blob',
+        url: "https://private-cors-server.herokuapp.com/" + resolution.url,
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${results?.meta?.title}.mp4`);
+        document.body.appendChild(link); 
+        link.click();
+        // 5. Clean up and remove the link
+        link.parentNode.removeChild(link);
 
-    })
-    .then(({ data}) => {
-      console.log(data);
-    }).catch(error=> console.log(error))
+    
+      console.log(response);
+      })
+ }
+ };
 
 
-  //     const response = await fetch("api/download", {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         downloadUrl: resolution?.url,
-  //         title: results?.meta.title,
-  //         ext: resolution?.ext
-  //       }),
-  //        responseType: 'stream',
-  //       headers: {
-  //         "Content-Type": "video/mp4",
-  //       },
-  //     });
 
-  //     const data = await response.json();
-  //     // setResults(data);
-  //     // if (response) setLoading(false);
-  //     console.log(response);
-      
-    }
-  };
-console.log(resolution.name)
+
+
+
+
+
+
+
+
+
+console.log(resolution)
   return (
     <div>
       <div className={styles.form}>

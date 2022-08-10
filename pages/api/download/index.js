@@ -18,15 +18,21 @@ export default async function handler(req, res) {
     const response = await axios({
       method: 'GET',
       url: body.downloadUrl,
-      responseType: 'stream',
+      responseType: 'arraybuffer',
     });
 
-    console.log(response.data)
+    const buffer = Buffer.from(response.data, 'utf-8');
 
-    const download = response.data.pipe(fs.createWriteStream(localFilePath));
+     console.log(buffer)
+    res.status(200).send(buffer);
+
+
+   
+
+//     const download = response.data.pipe(fs.createWriteStream(localFilePath));
 // console.log(download)
-    download.on('finish', () => {
-      console.log('Successfully downloaded file!');
-    });
-    res.json(download);
-}
+//     download.on('finish', () => {
+//       console.log('Successfully downloaded file!');
+//     });
+    // res.json(download);
+} 
