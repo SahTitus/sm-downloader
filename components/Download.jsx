@@ -105,7 +105,10 @@ function Download() {
       const response = await axios({
         url: "https://cors-everywhere-my.herokuapp.com/" + resolution.url,
         method: 'GET',
-        responseType: 'blob',
+        // headers: {
+        //         'Content-Type': 'video/mp4',
+        //       },
+              responseType: 'blob',
         onDownloadProgress: (progressEvent) => {
           let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total); // you can use this to show user percentage of file downloaded
       setPercentage(percentCompleted)
@@ -234,7 +237,7 @@ console.log(resolution)
               className={styles.download__button}
             >
               <CloudArrowDown className={styles.downloadIcon} />
-              {percentage}
+              {percentage} %
             </button>
           </div>
         </div>
