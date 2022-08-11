@@ -119,9 +119,6 @@
 //     return( <button onClick={this.fetchFile}> Download file </button>)
 //   }
 
-
-
-
 // //   i was working
 
 // fetch(resolution?.url, {

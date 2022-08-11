@@ -11,21 +11,30 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { Drawer, Box } from "@mui/material";
 import Quality from "./Quality";
+import DownModal from "./DownModal";
 
-const reqUrl = 'https://api.videodownloaderpro.net/api/convert'
+const downInfo = {
+  completed: false,
+  progress: 0,
+  loaded: 0,
+  total: 0,
+}
+
+const reqUrl = "https://api.videodownloaderpro.net/api/convert";
 
 function Download() {
   const [url, setUrl] = useState("");
   const [results, setResults] = useState({});
   const [videoSelected, setVideoSelected] = useState(true);
   const [audioSelected, setAudioSelected] = useState(false);
-  const [resolution, setResolution] = useState({format: 'Set Quality',});
+  const [resolution, setResolution] = useState({ format: "Set Quality" });
   const [selectedLink, setSelectedLink] = useState("");
   const [loading, setLoading] = useState(false);
-  const [percentage, setPercentage] = useState(0);
+  const [showDownMoadal, setShowDownMoadal] = useState(false);
   const [state, setState] = useState({
     bottom: false,
   });
+  const [downloadingState, setDownloadingState] = useState(downInfo);
   const show = false;
 
   const videoClick = () => {
@@ -45,7 +54,6 @@ function Download() {
   const handleChange = (e) => {
     setUrl(e.target.value);
   };
-
 
   const list = (anchor) => (
     <Box
@@ -76,71 +84,66 @@ function Download() {
     e.preventDefault();
     setLoading(true);
     if (url) {
-      await axios( {
-
-
-            method: "post",
-            url: reqUrl,
-            data: {
-              url: url,
-            },
+      await axios({
+        method: "post",
+        url: reqUrl,
+        data: {
+          url: url,
+        },
+      })
+        .then(({ data }) => {
+          setResults(data);
+          setLoading(false);
         })
-        .then(({ data}) => {
-            setResults(data) 
-            setLoading(false);
-        
-        }).catch(error=> console.log(error))
-      // .then(({data}) => {
-      //   setResults(data) 
-      //   setLoading(false);
-      // });
-    } 
+        .catch((error) => console.log(error));
+    }
   };
   console.log(results);
+
   const download = async (e) => {
     e.preventDefault();
-    console.log('GONE')
+    console.log("GONE");
+    setShowDownMoadal(true)
     if (resolution.url) {
-
       const response = await axios({
         url: "https://cors-everywhere-my.herokuapp.com/" + resolution.url,
-        method: 'GET',
+        method: "GET",
         // headers: {
         //         'Content-Type': 'video/mp4',
         //       },
-              responseType: 'blob',
+        responseType: "blob",
         onDownloadProgress: (progressEvent) => {
-          let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total); // you can use this to show user percentage of file downloaded
-      setPercentage(percentCompleted)
-        }
+          const { loaded, total } = progressEvent;
+          setDownloadingState({
+            progress: Math.round((loaded * 100) / total),
+            loaded,
+            total,
+            completed: false,
+          });
+        },
       }).then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', `${results?.meta?.title}.mp4`);
-        document.body.appendChild(link); 
+        link.setAttribute("download", `${results?.meta?.title}.mp4`);
+        document.body.appendChild(link);
         link.click();
-        // 5. Clean up and remove the link
         link.parentNode.removeChild(link);
 
-    
-      console.log(response);
-      })
- }
- };
+        setDownloadingState(info => ({
+          ...info,
+          completed: true,
+        }));
 
+        setTimeout(() => {setShowDownMoadal(false)}, 3000)
 
+        console.log(response);
+      });
+    }
+  };
 
+  console.log(resolution);
 
-
-
-
-
-
-
-
-
-console.log(resolution)
   return (
     <div>
       <div className={styles.form}>
@@ -195,7 +198,7 @@ console.log(resolution)
                   audioSelected && styles.selectFormat
                 }`}
               >
-                <h4>Audio</h4>  
+                <h4>Audio</h4>
               </div>
             </div>
             <div className={styles.videoInfo}>
@@ -204,10 +207,13 @@ console.log(resolution)
                 className={styles.resolu__container}
               >
                 <div className={styles.resolu__select}>
-                   <p>{  resolution?.quality || resolution?.subname || resolution?.name}</p> &nbsp;  - 
-                  
-                   <p>{  resolution.name}</p>
-                   <p>{  resolution.format}</p>
+                  <p>
+                    {resolution?.quality ||
+                      resolution?.subname ||
+                      resolution?.name}
+                  </p>{" "}
+                  &nbsp; -<p>{resolution.name}</p>
+                  <p>{resolution.format}</p>
                   <div className={styles.file__size}>
                     <p> 49.4MB</p>
                     <span className={styles.mute__circle}>
@@ -231,17 +237,10 @@ console.log(resolution)
               Download
             </button>
           </div>
-          <div className={styles.download__box}>
-            <button
-              type="button"
-              className={styles.download__button}
-            >
-              <CloudArrowDown className={styles.downloadIcon} />
-              {percentage} %
-            </button>
-          </div>
         </div>
       )}
+
+      <DownModal showDownMoadal={showDownMoadal} dInfo={downloadingState} />
 
       <Drawer
         anchor="bottom"
@@ -250,6 +249,7 @@ console.log(resolution)
       >
         {list("bottom")}
       </Drawer>
+      
     </div>
   );
 }
