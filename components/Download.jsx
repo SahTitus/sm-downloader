@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   ChevronDown,
@@ -35,7 +35,14 @@ function Download() {
     bottom: false,
   });
   const [downloadingState, setDownloadingState] = useState(downInfo);
-  const show = false;
+
+
+
+const audio = results?.url?.filter((result) => !result?.audio ? result?.audio : result)
+const videos = results?.url?.filter((result) => result?.audio ? !result?.audio : result)
+
+const [quality, setQuality] = useState(videos);
+console.log(videos)
 
   const videoClick = () => {
     setVideoSelected(true);
@@ -49,6 +56,11 @@ function Download() {
 
   const toggleMenu = (anchor, open) => (event) => {
     setState({ ...state, [anchor]: open });
+    if (videoSelected) {
+      setQuality(videos)
+    } else {
+      setQuality(audio)
+    }
   };
 
   const handleChange = (e) => {
@@ -65,7 +77,7 @@ function Download() {
       <Quality
         setSelectedLink={setSelectedLink}
         setResolution={setResolution}
-        quality={results?.url}
+        quality={quality}
         sd={results?.sd}
         hd={results?.hd}
         hosting={results?.hosting}
@@ -81,7 +93,7 @@ function Download() {
   //https://www.dailymotion.com/video/x8cpwja?playlist=x7g4o0
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setLoading(true);
     if (url) {
       await axios({
@@ -96,9 +108,15 @@ function Download() {
           setLoading(false);
         })
         .catch((error) => console.log(error));
+        setLoading(false);
     }
   };
   console.log(results);
+
+  useEffect(() => {
+    if (url) handleSubmit()
+  }, [url])
+
 
   const download = async (e) => {
     e.preventDefault();
@@ -125,7 +143,7 @@ function Download() {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", `${results?.meta?.title}.mp4`);
+        link.setAttribute("download", `${results?.meta?.title}.${resolution.ext}`);
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
@@ -212,10 +230,10 @@ function Download() {
                       resolution?.subname ||
                       resolution?.name}
                   </p>{" "}
-                  &nbsp; -<p>{resolution.name}</p>
+                  &nbsp; <p>{resolution.name}</p>
                   <p>{resolution.format}</p>
                   <div className={styles.file__size}>
-                    <p> 49.4MB</p>
+                    {/* <p> 49.4MB</p> */}
                     <span className={styles.mute__circle}>
                       <VolumeMuteFill className={styles.mute} />
                     </span>

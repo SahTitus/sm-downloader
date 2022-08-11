@@ -8,30 +8,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function AlertDialogSlide({ dInfo, showDownMoadal }) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const formatBytes = (bytes) => `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 
   return (
     <div>
       <Dialog
+      sx={{ '& .MuiDialog-paper': { width: '100%', height: 435, borderRadius: 3, } }}
         open={showDownMoadal}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
         <div className={styles.downloadModal}>
           <div className={styles.downloadModal__container}>
+            {(dInfo.progress === 0) && <h2>Initializing...</h2> }
+            {(dInfo.progress > 0.1 && dInfo.progress < 80 ) && <h2>Please wait...</h2> }
+            {(dInfo.progress > 79 && dInfo.progress < 100) && <h2>Your`re almost there ...</h2> }
+            {dInfo.progress === 100 && (<h2>Done</h2>) }
             <div className={`${styles.download__circle}`}>
               {!dInfo.completed ? (
                 <>

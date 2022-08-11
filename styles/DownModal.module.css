@@ -1,13 +1,9 @@
 .downloadModal {
-    min-width: 200px;
-    max-width: 300px;
-    min-height: 220px;
-    max-height: 400px;
+    min-height: 100%;
+    max-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border-radius: 50% !important; */
-    /* background-color: #172b35; */
 }
 
 .downloadModal__container {
@@ -25,8 +21,8 @@
     align-items: center;
     border: 7px solid rgb(240, 46, 99);
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 150px;
 }
 
 .download__circle p {
@@ -43,7 +39,7 @@
 }
 
 .download__bytes p {
-   font-size: 16px;
+   font-size: 22px;
    font-weight: 500;
 }
 
@@ -52,7 +48,7 @@
 }
 
 .cloudCheckFill {
-    font-size: 17px;
+    font-size: 70px;
     color: rgb(33, 170, 90);
-    transform: scale(2.5)
+    /* transform: scale(2.5) */
 }

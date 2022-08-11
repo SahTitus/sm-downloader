@@ -13,7 +13,7 @@ function Quality({quality, setResolution, sd, hd, hosting}) {
         <div className={`${styles.top}`}>
           <div className={`${styles.top__container}`}>
             <h5>Resolution</h5>
-            <h5>File size</h5>
+            {/* <h5>File size</h5> */}
           </div>
         </div>
         
@@ -28,10 +28,12 @@ function Quality({quality, setResolution, sd, hd, hosting}) {
 
                   <p>{quality.name}</p>
                   <div className={styles.file__size}>
-                    <p> 49.4MB</p>
+                    {/* <p> 49.4MB</p> */}
+                    {quality.no_audio && 
                     <span className={styles.mute__circle}>
-                      <VolumeMuteFill className={styles.mute} />
+                     <VolumeMuteFill className={styles.mute} />
                     </span>
+}
                   </div>
                 </ListItem>
       
