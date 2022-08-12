@@ -56,6 +56,25 @@
   font-size: 20px;
 }
 
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #172b35;
+  width: 80%;
+  color: #fff;
+  border-radius: 10px;
+  font-size: large;
+  padding: 5px 0;
+}
+
 .loading {
   display: flex;
   justify-content: center;

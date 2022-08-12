@@ -9,7 +9,7 @@ import {
 import styles from "../styles/Download.module.css";
 import Spinner from "../components/Spinner";
 import axios from "axios";
-import { Drawer, Box } from "@mui/material";
+import { Drawer, Box, Zoom } from "@mui/material";
 import Quality from "./Quality";
 import DownModal from "./DownModal";
 
@@ -18,7 +18,7 @@ const downInfo = {
   progress: 0,
   loaded: 0,
   total: 0,
-}
+};
 
 const reqUrl = "https://api.videodownloaderpro.net/api/convert";
 
@@ -29,6 +29,7 @@ function Download() {
   const [audioSelected, setAudioSelected] = useState(false);
   const [resolution, setResolution] = useState({ format: "Set Quality" });
   const [selectedLink, setSelectedLink] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showDownMoadal, setShowDownMoadal] = useState(false);
   const [state, setState] = useState({
@@ -36,15 +37,21 @@ function Download() {
   });
   const [downloadingState, setDownloadingState] = useState(downInfo);
 
-  const resultsRef = useRef()
-  
+  const resultsRef = useRef();
 
-resultsRef.current?.scrollIntoView({behavior: 'smooth'})
+  if (results.url) {
+    resultsRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
-const audio = results?.url?.filter((result) => !result?.audio ? result?.audio : result)
-const videos = results?.url?.filter((result) => result?.audio ? !result?.audio : result)
+  const audio = results?.url?.filter((result) =>
+    !result?.audio ? result?.audio : result
+  );
+  const videos = results?.url?.filter((result) =>
+    result?.audio ? !result?.audio : result
+  );
 
-const [quality, setQuality] = useState(videos);
+  const [quality, setQuality] = useState(videos);
+  const [throwError, setThrowError] = useState(false);
 
   const videoClick = () => {
     setVideoSelected(true);
@@ -59,9 +66,9 @@ const [quality, setQuality] = useState(videos);
   const toggleMenu = (anchor, open) => (event) => {
     setState({ ...state, [anchor]: open });
     if (videoSelected) {
-      setQuality(videos)
+      setQuality(videos);
     } else {
-      setQuality(audio)
+      setQuality(audio);
     }
   };
 
@@ -109,53 +116,81 @@ const [quality, setQuality] = useState(videos);
           setResults(data);
           setLoading(false);
         })
-        .catch((error) => console.log(error));
-        setLoading(false);
+        .catch((error) => {
+          console.log(error);
+          if (error.message === "Network Error") {
+            setErrorMsg("Check your network connection");
+          } else {
+            setErrorMsg("Please enter a valid data");
+          }
+
+          setThrowError(true);
+          setTimeout(() => {
+            setThrowError(false);
+          }, 3000);
+        });
+
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (url) handleSubmit()
-  }, [url])
+    if (url) handleSubmit();
+  }, [url]);
 
+  const controller = new AbortController();
 
   const download = async (e) => {
     e.preventDefault();
-    setShowDownMoadal(true)
+    setShowDownMoadal(true);
     if (resolution.url) {
-      const response = await axios({
-        url: "https://cors-everywhere-my.herokuapp.com/" + resolution.url,
-        method: "GET",
-        // headers: {
-        //         'Content-Type': 'video/mp4',
-        //       },
-        responseType: "blob",
-        onDownloadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent;
-          setDownloadingState({
-            progress: Math.round((loaded * 100) / total),
-            loaded,
-            total,
-            completed: false,
-          });
+      const response = await axios(
+        {
+          url: "https://cors-everywhere-my.herokuapp.com/" + resolution.url,
+          method: "GET",
+          // headers: {
+          //         'Content-Type': 'video/mp4',
+          //       },
+          responseType: "blob",
+          onDownloadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            setDownloadingState({
+              progress: Math.round((loaded * 100) / total),
+              loaded,
+              total,
+              completed: false,
+            });
+          },
         },
-      }).then((response) => {
+        { signal: controller.signal }
+      ).then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", `${results?.meta?.title}.${resolution.ext}`);
+        link.setAttribute(
+          "download",
+          `${results?.meta?.title}.${resolution.ext}`
+        );
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
 
-        setDownloadingState(info => ({
+        setDownloadingState((info) => ({
           ...info,
           completed: true,
         }));
 
-        setTimeout(() => {setShowDownMoadal(false)}, 3000)
+        setTimeout(() => {
+          setShowDownMoadal(false);
+        }, 3000);
       });
     }
+  };
+  console.log(errorMsg);
+
+  const cancelDownload = () => {
+    controller.abort();
+    console.log("Cacel");
   };
 
   return (
@@ -175,7 +210,15 @@ const [quality, setQuality] = useState(videos);
           </div>
         </form>
       </div>
-
+      {throwError && (
+        <Zoom in={throwError} style={{ transitionDelay: "0ms" }}>
+          <div className={styles.error}>
+            <div className={styles.errorContainer}>
+              <p>{errorMsg}</p>
+            </div>
+          </div>
+        </Zoom>
+      )}
       {loading && (
         <div className={styles.loading}>
           <div ref={resultsRef} />
@@ -185,7 +228,6 @@ const [quality, setQuality] = useState(videos);
 
       {!!results.url && (
         <div className={styles.results}>
-          
           <div className={styles.thumbnail}>
             <img
               src={results?.thumb}
@@ -255,7 +297,11 @@ const [quality, setQuality] = useState(videos);
         </div>
       )}
 
-      <DownModal showDownMoadal={showDownMoadal} dInfo={downloadingState} />
+      <DownModal
+        showDownMoadal={showDownMoadal}
+        dInfo={downloadingState}
+        cancel={cancelDownload}
+      />
 
       <Drawer
         anchor="bottom"
@@ -264,7 +310,6 @@ const [quality, setQuality] = useState(videos);
       >
         {list("bottom")}
       </Drawer>
-      
     </div>
   );
 }

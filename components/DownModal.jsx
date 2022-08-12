@@ -7,13 +7,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({ dInfo, showDownMoadal }) {
+export default function AlertDialogSlide({ dInfo, showDownMoadal, cancel }) {
   const formatBytes = (bytes) => `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 
   return (
     <div>
       <Dialog
-      sx={{ '& .MuiDialog-paper': { width: '100%', height: 435, borderRadius: 3, } }}
+        sx={{
+          "& .MuiDialog-paper": { width: "100%", height: 435, borderRadius: 3 },
+        }}
         open={showDownMoadal}
         TransitionComponent={Transition}
         keepMounted
@@ -22,10 +24,15 @@ export default function AlertDialogSlide({ dInfo, showDownMoadal }) {
       >
         <div className={styles.downloadModal}>
           <div className={styles.downloadModal__container}>
-            {(dInfo.progress === 0) && <h2>Initializing...</h2> }
-            {(dInfo.progress > 0.1 && dInfo.progress < 80 ) && <h2>Please wait...</h2> }
-            {(dInfo.progress > 79 && dInfo.progress < 100) && <h2>Your`re almost there ...</h2> }
-            {dInfo.progress === 100 && (<h2>Done</h2>) }
+            <h1 onClick={cancel}>Cancel</h1>
+            {dInfo.progress === 0 && <h2>Converting...</h2>}
+            {dInfo.progress > 0.1 && dInfo.progress < 80 && (
+              <h2>Please wait...</h2>
+            )}
+            {dInfo.progress > 79 && dInfo.progress < 100 && (
+              <h2>Your`re almost there ...</h2>
+            )}
+            {dInfo.progress === 100 && <h2>Done</h2>}
             <div className={`${styles.download__circle}`}>
               {!dInfo.completed ? (
                 <>
@@ -34,20 +41,22 @@ export default function AlertDialogSlide({ dInfo, showDownMoadal }) {
                 </>
               ) : (
                 <>
-                <CloudCheckFill className={styles.cloudCheckFill}/>
+                  <CloudCheckFill className={styles.cloudCheckFill} />
                 </>
               )}
             </div>
             <div className={styles.download__bytes}>
-              {!dInfo.completed ? 
-            <>
-            <p>{formatBytes(dInfo?.loaded)}</p>
-              <span>/</span>
-              <p>{formatBytes(dInfo?.total)}</p>
-            </> : <>
-            <p>Enjoy Watching 😍</p>
-            </>  
-            }
+              {!dInfo.completed ? (
+                <>
+                  <p>{formatBytes(dInfo?.loaded)}</p>
+                  <span>/</span>
+                  <p>{formatBytes(dInfo?.total)}</p>
+                </>
+              ) : (
+                <>
+                  <p>Enjoy Watching 😍</p>
+                </>
+              )}
             </div>
           </div>
         </div>
