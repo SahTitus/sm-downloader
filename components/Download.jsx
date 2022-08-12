@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import {
   ChevronDown,
@@ -36,13 +36,15 @@ function Download() {
   });
   const [downloadingState, setDownloadingState] = useState(downInfo);
 
+  const resultsRef = useRef()
+  
 
+resultsRef.current?.scrollIntoView({behavior: 'smooth'})
 
 const audio = results?.url?.filter((result) => !result?.audio ? result?.audio : result)
 const videos = results?.url?.filter((result) => result?.audio ? !result?.audio : result)
 
 const [quality, setQuality] = useState(videos);
-console.log(videos)
 
   const videoClick = () => {
     setVideoSelected(true);
@@ -111,7 +113,6 @@ console.log(videos)
         setLoading(false);
     }
   };
-  console.log(results);
 
   useEffect(() => {
     if (url) handleSubmit()
@@ -120,7 +121,6 @@ console.log(videos)
 
   const download = async (e) => {
     e.preventDefault();
-    console.log("GONE");
     setShowDownMoadal(true)
     if (resolution.url) {
       const response = await axios({
@@ -154,13 +154,9 @@ console.log(videos)
         }));
 
         setTimeout(() => {setShowDownMoadal(false)}, 3000)
-
-        console.log(response);
       });
     }
   };
-
-  console.log(resolution);
 
   return (
     <div>
@@ -182,17 +178,18 @@ console.log(videos)
 
       {loading && (
         <div className={styles.loading}>
+          <div ref={resultsRef} />
           <Spinner />
         </div>
       )}
 
       {!!results.url && (
         <div className={styles.results}>
+          
           <div className={styles.thumbnail}>
             <img
               src={results?.thumb}
               alt=""
-              layout="fill"
               className={styles.results__image}
             />
           </div>

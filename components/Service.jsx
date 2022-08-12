@@ -41,10 +41,10 @@ function Service() {
         <div className={styles.smDescription__container}>
           <h2>Social Media Video Downloader</h2>
           <p>
-            Sm Downloader allows you to convert & download video from YouTube,
-            Facebook, Video, Dailymotion, Youku, etc. to Mp3, Mp4 in HD quality.
+            Sm Downloader is a technological tool which allows you to seamlessly convert & download videos from YouTube,
+            Facebook, Twitter, Intagram, Dailymotion, Vimeo, etc. to Mp3, Mp4 in HD and SD quality.
             Sm Downloader supports downloading all video formats such as: MP4,
-            M4V, 3GP, WMV, FLV, MO, MP3, WEBM, etc. You can easily download for
+            M4V, 3GP, OPUS, MP3, WEBM, etc. You can easily download for
             free thousands of videos from YouTube and other websites.
           </p>
         </div>
@@ -91,12 +91,15 @@ function Service() {
             1. Copy and paste the link of the video you want to download in the
             form above
           </p>
-          <p>2. Click button to begin converting process</p>
           <p>
-            3. Select the video/audio format you want to download, then click on
-            the DOWNLOAD button
+            2. Select the video/audio format you want to download.
           </p>
+          <p>
+            3. Then click on the DOWNLOAD button
+          </p>
+          
         </div>
+        <h2>Enjoy Watching 😍</h2>
       </div>
 
       <div className={styles.features}>

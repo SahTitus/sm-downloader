@@ -43,7 +43,7 @@ export default function AlertDialogSlide({ dInfo, showDownMoadal }) {
             <>
             <p>{formatBytes(dInfo?.loaded)}</p>
               <span>/</span>
-              <p>{formatBytes(dInfo?.total)} MB</p>
+              <p>{formatBytes(dInfo?.total)}</p>
             </> : <>
             <p>Enjoy Watching 😍</p>
             </>  
