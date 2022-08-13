@@ -191,6 +191,7 @@ function Download() {
   const cancelDownload = () => {
     controller.abort();
     console.log("Cacel");
+    window.location.reload();
   };
 
   return (
