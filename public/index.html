@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#f4f4f4" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no,viewport-fit=cover"
+    />
+    <meta
+      name="Sm Downloader"
+      content="Download social media videos into your phone`s gallery"
+    />
+
+    <!-- <link rel="assetlinks" href="%PUBLIC_URL%/.well-known/assetlinks.json" /> -->
+    <!-- <link rel="sitemap" href="%PUBLIC_URL%/sitemap.xml" /> -->
+    <!-- <link rel="txt" href="%PUBLIC_URL%/robots.txt" /> -->
+    <link rel="icon" href="/android-chrome-maskable-512x512.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#df517c" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Commissioner&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Commissioner&family=Quicksand:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Commissioner&family=Indie+Flower&family=Quicksand:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <title>
+      Download all social media videos at one place to phones gallery
+    </title>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1446397159695121"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-MVEBXXYRSE"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-MVEBXXYRSE");
+    </script>
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then((reg) => console.log("Success: ", reg.scope))
+            .catch((err) => console.log("Failure: ", err));
+        });
+      }
+    </script>
+  </body>
+</html>
+<script>
+  function blinker() {
+    $(".blinking").fadeOut(500);
+    $(".blinking").fadeIn(500);
+  }
+  setInterval(blinker, 2000);
+  function Myfile() {
+    document.getElementById("btnfile").click();
+  }
+</script>
+<script>
+  (function (d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://www.scorebat.com/embed/embed.js?v=arrv";
+    fjs.parentNode.insertBefore(js, fjs);
+  })(document, "script", "scorebat-jssdk");
+</script>
+<!-- Scripts -->
+
+<script
+  type="module"
+  src="https://widgets.api-sports.io/football/1.1.8/widget.js"
+></script>
