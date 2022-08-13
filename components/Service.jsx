@@ -99,7 +99,7 @@ function Service() {
           </p>
           
         </div>
-        <h1>Enjoy Watching 😍</h1>
+        <h1>Enjoy Watching 🤩</h1>
       </div>
 
       <div className={styles.features}>
