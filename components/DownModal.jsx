@@ -24,7 +24,6 @@ export default function AlertDialogSlide({ dInfo, showDownMoadal, cancel }) {
       >
         <div className={styles.downloadModal}>
           <div className={styles.downloadModal__container}>
-            <h1 onClick={cancel}>Cancel</h1>
             {dInfo.progress === 0 && <h2>Converting...</h2>}
             {dInfo.progress > 0.1 && dInfo.progress < 80 && (
               <h2>Please wait...</h2>
@@ -58,7 +57,14 @@ export default function AlertDialogSlide({ dInfo, showDownMoadal, cancel }) {
                 </>
               )}
             </div>
+            {dInfo.progress !== 100 && (
+              <div onClick={cancel} className={styles.cancelButton}>
+              <p >Cancel</p>
+              </div>
+            )}
+          
           </div>
+        
         </div>
       </Dialog>
     </div>

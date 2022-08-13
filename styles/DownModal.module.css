@@ -52,3 +52,16 @@
     color: rgb(33, 170, 90);
     /* transform: scale(2.5) */
 }
+
+.cancelButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+    background-color: #172b35;
+    border-radius: 30px;
+    color: #fff;
+    font-size: large;
+    height: 40px;
+    cursor: pointer;
+}
