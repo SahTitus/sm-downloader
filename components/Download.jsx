@@ -12,6 +12,7 @@ import axios from "axios";
 import { Drawer, Box, Zoom } from "@mui/material";
 import Quality from "./Quality";
 import DownModal from "./DownModal";
+import { runFireworks } from "../utils/utils";
 
 const downInfo = {
   completed: false,
@@ -181,6 +182,8 @@ function Download() {
         }));
 
         setTimeout(() => {
+       setDownloadingState(downInfo)
+       runFireworks()
           setShowDownMoadal(false);
         }, 3000);
       });
