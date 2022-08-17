@@ -139,7 +139,7 @@ function Download() {
     if (url) handleSubmit();
   }, [url]);
 
-  const controller = new AbortController();
+  // const controller = new AbortController();
 
   const download = async (e) => {
     e.preventDefault();
@@ -163,7 +163,7 @@ function Download() {
             });
           },
         },
-        { signal: controller.signal }
+        // { signal: controller.signal }
       ).then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
@@ -192,7 +192,7 @@ function Download() {
   console.log(errorMsg);
 
   const cancelDownload = () => {
-    controller.abort();
+    // controller.abort();
     console.log("Cacel");
     window.location.reload();
   };
