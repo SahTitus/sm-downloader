@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItem, List } from "@mui/material";
 import styles from "../styles/Quality.module.css";
-import { VolumeMuteFill } from "react-bootstrap-icons";
+import { MusicNoteBeamed, VolumeMuteFill } from "react-bootstrap-icons";
 
 function Quality({quality, setResolution, sd, hd, hosting}) {
 
@@ -26,7 +26,7 @@ function Quality({quality, setResolution, sd, hd, hosting}) {
                   {(hosting === "tiktok.com" && <p>{quality?.subname}</p>) } 
                   {(hosting === "twitter.com" && <p>{quality?.quality}</p>) }
 
-                  <p>{quality.name}</p>
+                  <p>{quality?.audio ? <MusicNoteBeamed /> : quality.name} </p>
                   <div className={styles.file__size}>
                     {/* <p> 49.4MB</p> */}
                     {quality.no_audio && 

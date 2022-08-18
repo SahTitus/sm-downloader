@@ -170,7 +170,7 @@ function Download() {
         link.href = url;
         link.setAttribute(
           "download",
-          `${results?.meta?.title}.${resolution.ext}`
+          `${results?.meta?.title}.${resolution.audio ? 'mp3' : resolution.ext}`
         );
         document.body.appendChild(link);
         link.click();
@@ -189,7 +189,7 @@ function Download() {
       });
     }
   };
-  console.log(errorMsg);
+  console.log(resolution);
 
   const cancelDownload = () => {
     // controller.abort();
